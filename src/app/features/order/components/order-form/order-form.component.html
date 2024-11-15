@@ -1,0 +1,70 @@
+<div class="order-form">
+    <h2>Formulario de Pedido</h2>
+  
+    <form (ngSubmit)="onSubmit()" #orderForm="ngForm">
+      <!-- Dirección de entrega -->
+      <div>
+        <label for="street">Calle</label>
+        <input id="street" type="text" [(ngModel)]="street" name="street" required>
+      </div>
+      <div>
+        <label for="number">Número</label>
+        <input id="number" type="text" [(ngModel)]="number" name="number" required>
+      </div>
+      <div>
+        <label for="city">Ciudad</label>
+        <select id="city" [(ngModel)]="city" name="city" required>
+          <option *ngFor="let city of cities" [value]="city">{{ city }}</option>
+        </select>
+      </div>
+      <div>
+        <label for="reference">Referencia (opcional)</label>
+        <input id="reference" type="text" [(ngModel)]="reference" name="reference">
+      </div>
+  
+      <!-- Forma de pago -->
+      <div>
+        <label>Forma de Pago</label>
+        <div>
+          <input type="radio" id="cash" name="paymentMethod" value="cash" [(ngModel)]="paymentMethod">
+          <label for="cash">Efectivo</label>
+        </div>
+        <div>
+          <input type="radio" id="card" name="paymentMethod" value="card" [(ngModel)]="paymentMethod">
+          <label for="card">Tarjeta</label>
+        </div>
+      </div>
+  
+      <!-- Datos de tarjeta si la forma de pago es tarjeta -->
+      <div *ngIf="paymentMethod === 'card'">
+        <div>
+          <label for="cardNumber">Número de Tarjeta</label>
+          <input id="cardNumber" type="text" [(ngModel)]="cardNumber" name="cardNumber">
+        </div>
+        <div>
+          <label for="cardHolder">Titular</label>
+          <input id="cardHolder" type="text" [(ngModel)]="cardHolder" name="cardHolder">
+        </div>
+        <div>
+          <label for="expiryDate">Fecha de Vencimiento (MM/AAAA)</label>
+          <input id="expiryDate" type="text" [(ngModel)]="expiryDate" name="expiryDate">
+        </div>
+        <div>
+          <label for="cvc">CVC</label>
+          <input id="cvc" type="text" [(ngModel)]="cvc" name="cvc">
+        </div>
+      </div>
+  
+      <!-- Hora de entrega -->
+      <div>
+        <label for="deliveryTime">Hora de Entrega</label>
+        <select id="deliveryTime" [(ngModel)]="deliveryTime" name="deliveryTime" required>
+          <option value="ASAP">Lo antes posible</option>
+          <option value="scheduled">Fecha programada</option>
+        </select>
+      </div>
+  
+      <button type="submit" [disabled]="!orderForm.form.valid">Realizar Pedido</button>
+    </form>
+  </div>
+  
